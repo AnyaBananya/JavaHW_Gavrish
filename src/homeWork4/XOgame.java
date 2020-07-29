@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class XOgame {
-    static final int SIZE = 3;
-//    static final int DOTS_TO_WIN = 3;
+    static final int SIZE = 5;
+    static final int DOTS_TO_WIN = 4;
 
     static final char DOT_X = 'X';
     static final char DOT_O = 'O';
@@ -23,7 +23,7 @@ public class XOgame {
         while (true) {
             humanTurn();
             printMap();
-            if(checkWin(DOT_X)){
+            if (checkWin(DOT_X)) {
                 System.out.println("Ты победил! ");
                 break;
             }
@@ -34,7 +34,7 @@ public class XOgame {
 
             aiTurn();
             printMap();
-            if(checkWin(DOT_O)){
+            if (checkWin(DOT_O)) {
                 System.out.println("Компьютер победил! ");
                 break;
             }
@@ -42,10 +42,8 @@ public class XOgame {
                 System.out.println("Ничья!");
                 break;
             }
-
         }
     }
-
 
     public static void initMap() {
         map = new char[SIZE][SIZE];
@@ -84,7 +82,7 @@ public class XOgame {
     }
 
     public static boolean isCellValid(int y, int x) {
-        if (x < 0 || y < 0 || x >= SIZE || y >= SIZE) {
+        if (!isInMap(y, x)) {
             return false;
         }
         return map[y][x] == DOT_EMPTY;
@@ -92,6 +90,20 @@ public class XOgame {
 
     public static void aiTurn() {
         int x, y;
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (map[i][j] == DOT_EMPTY) {
+                    map[i][j] = DOT_X;
+                    if (checkWin(DOT_X)) {
+                        map[i][j] = DOT_O;
+                        return;
+                    } else {
+                        map[i][j] = DOT_EMPTY;
+                    }
+                }
+            }
+        }
 
         do {
             x = random.nextInt(SIZE);
@@ -113,18 +125,29 @@ public class XOgame {
     }
 
     public static boolean checkWin(char c) {
-        if (map[0][0] == c && map[0][1] == c && map[0][2] == c) {return true; }
-        if (map[1][0] == c && map[1][1] == c && map[1][2] == c) {return true; }
-        if (map[2][0] == c && map[2][1] == c && map[2][2] == c) {return true; }
-
-        if (map[0][0] == c && map[1][0] == c && map[2][0] == c) {return true; }
-        if (map[0][1] == c && map[1][1] == c && map[2][1] == c) {return true; }
-        if (map[0][2] == c && map[1][2] == c && map[2][2] == c) {return true; }
-
-        if (map[0][0] == c && map[1][1] == c && map[2][2] == c) {return true; }
-        if (map[0][2] == c && map[1][1] == c && map[2][0] == c) {return true; }
-
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (checkSeq(j, i, 1, 0, c)
+                        || checkSeq(j, i, 0, 1, c)
+                        || checkSeq(j, i, 1, 1, c)
+                        || checkSeq(j, i, 1, -1, c)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
+    public static boolean checkSeq(int y, int x, int dy, int dx, char c) {
+        for (int i = 0; i < DOTS_TO_WIN; i++) {
+            if (!isInMap(y + i * dy, x + i * dx) || map[y + i * dy][x + i * dx] != c) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isInMap(int y, int x) {
+        return x >= 0 && y >= 0 && x < SIZE && y < SIZE;
+    }
 }
