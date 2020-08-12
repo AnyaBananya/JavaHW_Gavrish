@@ -16,11 +16,9 @@ public class BattleField extends JPanel {
     private int cellWidth;
     private int cellHeight;
 
-
     public BattleField(GameWindow gameWindow) {
         this.gameWindow = gameWindow;
-
-        setBackground(Color.ORANGE);
+        setBackground(Color.decode("#77DD77"));
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -31,17 +29,41 @@ public class BattleField extends JPanel {
     }
 
     private void clickBattleField(MouseEvent e) {
+        if (Logic.status != Logic.STATUS_IN_GAME) {
+            return;
+        }
         int cellX = e.getX() / cellWidth;
         int cellY = e.getY() / cellHeight;
 
-        if(!Logic.isFinished){
-            Logic.humanTurn(cellX, cellY);
-        }
+        Logic.humanTurn(cellX, cellY);
 
         repaint();
 
+        if (Logic.status != Logic.STATUS_IN_GAME) {
+            String[] message = new String[2];
+            String resultMsg = "";
+            String title = "";
+            switch (Logic.status) {
+                case Logic.STATUS_HUMAN_WIN:
+                    gameWindow.firstPlayerWinCount += 1;
+                    resultMsg = "Ты выиграл!";
+                    title = "Победа";
+                    break;
+                case Logic.STATUS_AI_WIN:
+                    gameWindow.secondPlayerWinCount += 1;
+                    resultMsg = "Ты проиграл!";
+                    title = "Поражение";
+                    break;
+                case Logic.STATUS_TIE:
+                    resultMsg = "Ничья!";
+                    title = "Ничья";
+                    break;
+            }
+            message[0] = resultMsg;
+            message[1] = "Счет " + gameWindow.firstPlayerWinCount + ":" + gameWindow.secondPlayerWinCount;
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        }
     }
-
 
     public void startNewGame(int mode, int fieldSize, int winningLength) {
         this.mode = mode;
@@ -94,11 +116,24 @@ public class BattleField extends JPanel {
     private void drawX(Graphics g, int x, int y) {
         ((Graphics2D) g).setStroke(new BasicStroke(5));
         g.setColor(Color.RED);
-        g.drawLine(cellWidth * x, cellHeight * y, cellWidth * (x + 1), cellHeight * (y + 1));
+        g.drawLine(cellWidth * x + (int) (0.1 * cellWidth),
+            cellHeight * y + (int) (0.1 * cellHeight),
+            cellWidth * (x + 1) - (int) (0.1 * cellWidth),
+            cellHeight * (y + 1) - (int) (0.1 * cellHeight));
+        g.drawLine(cellWidth * (x + 1) - (int) (0.1 * cellWidth),
+            cellHeight * y + (int) (0.1 * cellHeight),
+            cellWidth * x + (int) (0.1 * cellWidth),
+            cellHeight * (y + 1) - (int) (0.1 * cellHeight));
+        ((Graphics2D) g).setStroke(new BasicStroke(0));
     }
 
     private void drawO(Graphics g, int x, int y) {
+        ((Graphics2D) g).setStroke(new BasicStroke(5));
         g.setColor(Color.BLUE);
-        g.drawLine(cellWidth * x, cellHeight * y, cellWidth * (x + 1), cellHeight * (y + 1));
+        g.drawOval(cellWidth * x + (int) (0.1 * cellWidth),
+            cellHeight * y + (int) (0.1 * cellHeight),
+            cellWidth - (int) (0.2 * cellWidth),
+            cellHeight - (int) (0.2 * cellHeight));
+        ((Graphics2D) g).setStroke(new BasicStroke(0));
     }
 }
