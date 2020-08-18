@@ -1,4 +1,4 @@
-package homeWork7;
+package level1.homeWork7;
 
 public class Plate {
     private int food;

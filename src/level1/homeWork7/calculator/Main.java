@@ -1,4 +1,4 @@
-package homeWork7.calculator;
+package level1.homeWork7.calculator;
 
 public class Main {
 

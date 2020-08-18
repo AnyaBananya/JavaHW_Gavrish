@@ -1,6 +1,6 @@
-package homeWork6;
+package level1.homeWork6;
 
-import homeWork6.animals.*;
+import level1.homeWork6.animals.*;
 
 public class Main {
     public static void main(String[] args) {

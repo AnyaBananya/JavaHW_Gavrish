@@ -1,4 +1,4 @@
-package homeWork6.animals;
+package level1.homeWork6.animals;
 
 public class Cat extends Animal {
     static int catCount;
