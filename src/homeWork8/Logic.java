@@ -1,7 +1,6 @@
 package homeWork8;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Logic {
     static int SIZE;
@@ -15,18 +14,24 @@ public class Logic {
 
     static Random random = new Random();
 
-    static boolean isFinished;
+    static final int STATUS_IN_GAME = 0;
+    static final int STATUS_HUMAN_WIN = 1;
+    static final int STATUS_AI_WIN = 2;
+    static final int STATUS_TIE = 3;
+
+    static int status;
 
     public static void go() {
-        isFinished = true;
 
         printMap();
         if (checkWinLines(DOT_X)) {
             System.out.println("Ты победил! ");
+            status = STATUS_HUMAN_WIN;
             return;
         }
         if (isFull()) {
             System.out.println("Ничья!");
+            status = STATUS_TIE;
             return;
         }
 
@@ -34,14 +39,14 @@ public class Logic {
         printMap();
         if (checkWinLines(DOT_O)) {
             System.out.println("Компьютер победил! ");
+            status = STATUS_AI_WIN;
             return;
         }
         if (isFull()) {
             System.out.println("Ничья!");
+            status = STATUS_TIE;
             return;
         }
-
-        isFinished = false;
     }
 
 
@@ -185,6 +190,4 @@ public class Logic {
         }
         return false;
     }
-
-
 }

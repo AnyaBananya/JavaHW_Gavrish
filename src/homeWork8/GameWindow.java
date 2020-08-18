@@ -12,6 +12,9 @@ public class GameWindow extends JFrame {
     private SettingWindow settingWindow;
     private BattleField battleField;
 
+    static int firstPlayerWinCount;
+    static int secondPlayerWinCount;
+
     public GameWindow() {
         setBounds(WINDOW_POS_X, WINDOW_POS_Y, WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
