@@ -1,0 +1,23 @@
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<?import javafx.scene.web.WebView?>
+<VBox fx:controller="level2.homeWork4.example3.Controller"
+      xmlns:fx="http://javafx.com/fxml" alignment="CENTER"
+      fx:id="vbox">
+
+    <stylesheets>
+        <URL value="@/level2/homeWork4/css/style.css"/>
+    </stylesheets>
+
+    <WebView fx:id="webView" VBox.vgrow="ALWAYS"/>
+
+<HBox>
+    <Button fx:id="btnYandex" text="Yandex.ru" onAction="#ClickBtnYandex"/>
+    <Button fx:id="btnGoogle" text="Google.com" onAction="#ClickBtnGoogle"/>
+    <Button fx:id="btnTutorial" text="Руководство JavaFX WebView и WebEngine" onAction="#ClickBtnTutorial"/>
+</HBox>
+
+
+</VBox>
