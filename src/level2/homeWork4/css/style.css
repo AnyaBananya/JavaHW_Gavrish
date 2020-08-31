@@ -1,5 +1,5 @@
 .root{
-    -fx-font-size: 20;
+    -fx-font-size: 14;
 }
 
 .button {
@@ -11,18 +11,10 @@
     -fx-background-color: #6bff33;
 }
 
-.button:hover, #btnHello:hover {
-    -fx-background-color: #ecff02;
-    -fx-text-fill: blue;
-    -fx-font-weight: bold;
-}
 
 .text-area {
-    -fx-background-color: #6bff33;
-    -fx-control-inner-background: yellow;
-    -fx-text-fill: blue;
-    -fx-highlight-text-fill: deeppink;
-    -fx-highlight-fill: orange;
-    -fx-font-style: italic;
-    -fx-font-weight: bold;
+    -fx-control-inner-background: #d8ffef;
+    -fx-text-fill: #000000;
+    -fx-highlight-text-fill: #4541ff;
+    -fx-highlight-fill: #fff447;
 }

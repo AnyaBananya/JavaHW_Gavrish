@@ -1,0 +1,17 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<BorderPane fx:controller="level2.homeWork4.chat.Controller" xmlns:fx="http://javafx.com/fxml">
+    <stylesheets>
+        <URL value="@/level2/homeWork4/css/style.css"/>
+    </stylesheets>
+    <center>
+        <TextArea fx:id="textArea"/>
+    </center>
+    <bottom>
+        <GridPane>
+            <TextField fx:id="textField" GridPane.rowIndex="0" GridPane.columnIndex="0" prefWidth="400" onAction="#onEnter"/>
+            <Button fx:id="btnSend" text="Отправить" onAction="#onClickBtnSend" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        </GridPane>
+    </bottom>
+</BorderPane>
