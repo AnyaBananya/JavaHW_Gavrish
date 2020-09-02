@@ -1,0 +1,36 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<BorderPane fx:controller="level2.homeWork4.example1.Controller"
+            xmlns:fx="http://javafx.com/fxml">
+    <stylesheets>
+        <URL value="@/level2/homeWork4/css/style.css"/>
+    </stylesheets>
+
+    <top>
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem text="Open"/>
+                <MenuItem text="Save"/>
+                <MenuItem text="Close" onAction="#clickClose"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <Slider fx:id="slider" min="0" max="100"
+                showTickMarks="true" showTickLabels="true"
+        onMouseReleased="#sliderOnMouseReleased"/>
+    </center>
+
+    <bottom>
+        <HBox>
+            <Button text="button1"/>
+            <Button text="button2"/>
+            <Button text="button3"/>
+            <Label text="Label"/>
+        </HBox>
+    </bottom>
+
+
+</BorderPane>

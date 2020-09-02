@@ -1,0 +1,14 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<VBox fx:controller="level2.homeWork4.exampleadd.Controller"
+      xmlns:fx="http://javafx.com/fxml" alignment="center"
+      fx:id="vbox">
+    <stylesheets>
+        <URL value="@/level2/homeWork4/css/style.css"/>
+    </stylesheets>
+
+    <Button fx:id="btnHello" text="add a button"
+            onAction="#onClickBtnAdd"/>
+
+</VBox>

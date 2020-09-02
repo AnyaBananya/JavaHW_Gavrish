@@ -1,0 +1,20 @@
+.root{
+    -fx-font-size: 14;
+}
+
+.button {
+    -fx-background-color: deepskyblue;
+    -fx-font-size: 16;
+}
+
+#btnHello {
+    -fx-background-color: #6bff33;
+}
+
+
+.text-area {
+    -fx-control-inner-background: #d8ffef;
+    -fx-text-fill: #000000;
+    -fx-highlight-text-fill: #4541ff;
+    -fx-highlight-fill: #fff447;
+}
