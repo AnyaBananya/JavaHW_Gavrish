@@ -53,6 +53,13 @@ public class ClientHandler {
                             break;
                         }
 
+                        if (str.startsWith("/w")) {
+                            String nick = str.split(" ", 3)[1];
+                            String message = str.split(" ", 3)[2];
+                            server.sendDirectMsg(this, message, nick);
+                            continue;
+                        }
+
                         server.broadcastMsg(this, str);
                     }
                 } catch (IOException e) {

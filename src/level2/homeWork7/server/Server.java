@@ -51,6 +51,18 @@ public class Server {
         }
     }
 
+    public void sendDirectMsg(ClientHandler sender, String msg, String clientName){
+        String message = String.format("%s : %s", sender.getNickname(), msg);
+        for (ClientHandler c : clients) {
+            if (c.getNickname().equals(clientName)){
+                c.sendMsg(message);
+            }
+        }
+        if(!sender.getNickname().equals(clientName)){
+            sender.sendMsg(message);
+        }
+    }
+
     public void subscribe(ClientHandler clientHandler){
         clients.add(clientHandler);
     }
