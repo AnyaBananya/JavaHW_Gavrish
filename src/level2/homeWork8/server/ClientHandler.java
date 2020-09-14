@@ -11,6 +11,7 @@ public class ClientHandler {
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
+    private static final int TIMEOUT = 120000;
 
     private String nickname;
     private String login;
@@ -24,7 +25,7 @@ public class ClientHandler {
 
             new Thread(() -> {
                 try {
-                    socket.setSoTimeout(5000);
+                    socket.setSoTimeout(TIMEOUT);
                     //цикл аутентификации
                     while (true) {
                         String str = in.readUTF();
@@ -96,7 +97,7 @@ public class ClientHandler {
 
                     //SocketTimeoutException
                 } catch (SocketTimeoutException e) {
-                    System.out.println("Клиент не аторизовался в течении 5 секунд");
+                    System.out.println("Клиент не аторизовался в течении 120 секунд");
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
