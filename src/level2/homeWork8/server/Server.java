@@ -15,6 +15,8 @@ public class Server {
     ServerSocket server = null;
     Socket socket = null;
 
+    SimpleDateFormat formater = new SimpleDateFormat("HH:mm:ss");
+
     public Server() {
         clients = new Vector<>();
         authService = new SimpleAuthService();
@@ -26,7 +28,6 @@ public class Server {
             while (true) {
                 socket = server.accept();
                 System.out.println("Клиент подключился");
-
                 new ClientHandler(this, socket);
             }
 
@@ -46,16 +47,14 @@ public class Server {
     }
 
     public void broadcastMsg(ClientHandler sender, String msg) {
-        SimpleDateFormat formater = new SimpleDateFormat("HH:mm:ss");
-
-        String message = String.format(" %s %s : %s", formater.format(new Date()), sender.getNickname(), msg);
+        String message = String.format("%s %s : %s", formater.format(new Date()), sender.getNickname(), msg);
         for (ClientHandler c : clients) {
             c.sendMsg(message);
         }
     }
 
     public void privateMsg(ClientHandler sender, String receiver, String msg) {
-        String message = String.format("[%s] private [%s] : %s", sender.getNickname(), receiver, msg);
+        String message = String.format("%s [%s] private [%s] : %s", formater.format(new Date()), sender.getNickname(), receiver, msg);
         for (ClientHandler c : clients) {
             if (c.getNickname().equals(receiver)) {
                 c.sendMsg(message);
