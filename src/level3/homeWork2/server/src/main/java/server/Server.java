@@ -3,6 +3,9 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -12,17 +15,20 @@ public class Server {
     private List<ClientHandler> clients;
     private AuthService authService;
 
+    private Connection connection;
+
     private int PORT = 8189;
     ServerSocket server = null;
     Socket socket = null;
 
     public Server() {
         clients = new Vector<>();
-        authService = new SimpleAuthService();
 
         try {
+            connect();
             server = new ServerSocket(PORT);
             System.out.println("Сервер запущен");
+            authService = new DatabaseAuthService(connection);
 
             while (true) {
                 socket = server.accept();
@@ -33,9 +39,14 @@ public class Server {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } finally {
             try {
                 server.close();
+                disconnect();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,5 +113,18 @@ public class Server {
             c.sendMsg(msg);
         }
     }
+
+    private void connect() throws ClassNotFoundException, SQLException {
+        Class.forName("org.sqlite.JDBC");
+        connection = DriverManager.getConnection("jdbc:sqlite:main.db");
+    }
+
+     private void disconnect() {
+         try {
+             connection.close();
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
+     }
 
 }
