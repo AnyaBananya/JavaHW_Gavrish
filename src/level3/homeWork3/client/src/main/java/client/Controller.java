@@ -51,6 +51,7 @@ public class Controller implements Initializable {
 
     private boolean authenticated;
     private String nickname;
+    private MessageHistory messageHistory;
     private final String TITLE = "Флудилка";
 
     private Stage stage;
@@ -71,6 +72,11 @@ public class Controller implements Initializable {
         }
         textArea.clear();
         setTitle(nickname);
+
+        if (authenticated) {
+            messageHistory = new MessageHistory(nickname);
+            textArea.appendText(String.join("\n", messageHistory.getMessages()) + "\n");
+        }
 
     }
 
@@ -156,6 +162,7 @@ public class Controller implements Initializable {
                                 //==============//
                             } else {
                                 textArea.appendText(str + "\n");
+                                messageHistory.addMessage(str);
                             }
                         }
                     } catch (RuntimeException e) {
